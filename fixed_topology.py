@@ -17,6 +17,16 @@ import math
 
 class GeneratedTopo(Topo):
 
+    def getDelay(la1, lo1, la2, lo2):
+        first_product               = math.sin(float(la1)) * math.sin(float(la2))
+        second_product_first_part   = math.cos(float(la1)) * math.cos(float(la2))
+        second_product_second_part  = math.cos((float(lo2)) - (float(lo1)))
+        distance = math.radians(math.acos(first_product + (second_product_first_part * second_product_second_part))) * 6378.137
+        # t (in ms) = ( distance in km * 1000 (for meters) ) / ( speed of light / 1000 (for ms))
+        # t         = ( distance       * 1000              ) / ( 1.97 * 10**8   / 1000         )
+        delay = "'" + (str((distance * 1000) / 197000)) + "ms'"
+        return delay
+    
     def __init__(self, **opts):
         "Create a topology."
 
@@ -174,16 +184,6 @@ class GeneratedTopo(Topo):
         self.addLink(Ashburn, Washington_DC, bw=1, delay=getDelay(39.051631, -77.483151, 38.890370, -77.031959))
         self.addLink(Washington_DC, Raleigh, bw=1, delay=getDelay(38.890370, -77.031959, 35.785510, -78.642669))
         self.addLink(Raleigh, Atlanta, bw=1, delay=getDelay(35.785510, -78.642669, 33.748315, -84.391109))
-        
-    def getDelay(la1, lo1, la2, lo2):
-        first_product               = math.sin(float(la1)) * math.sin(float(la2))
-        second_product_first_part   = math.cos(float(la1)) * math.cos(float(la2))
-        second_product_second_part  = math.cos((float(lo2)) - (float(lo1)))
-        distance = math.radians(math.acos(first_product + (second_product_first_part * second_product_second_part))) * 6378.137
-        # t (in ms) = ( distance in km * 1000 (for meters) ) / ( speed of light / 1000 (for ms))
-        # t         = ( distance       * 1000              ) / ( 1.97 * 10**8   / 1000         )
-        delay = "'" + (str((distance * 1000) / 197000)) + "ms'"
-        return delay
 
 topos = { 'generated': ( lambda: GeneratedTopo() ) }
 
