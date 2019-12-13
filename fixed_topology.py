@@ -1,6 +1,6 @@
 
 """
-Custom topology for Mininet
+Mininet topology for OS3E 
 """
 from mininet.topo import Topo
 from mininet.net import Mininet
@@ -15,15 +15,13 @@ from mininet.util import dumpNodeConnections
 import math
 
 
-class GeneratedTopo(Topo):
+class OS3ETopo(Topo):
     
     def __init__(self, **opts):
-        "Create a topology."
 
-        # Initialize Topology
         Topo.__init__(self, **opts)
 
-        # add nodes, switches first...
+        # Nodes (34)
         Sunnyvale = self.addSwitch('s0')
         Nashville = self.addSwitch('s1')
         Raleigh = self.addSwitch('s2')
@@ -59,7 +57,7 @@ class GeneratedTopo(Topo):
         Seattle = self.addSwitch('s32')
         Ashburn = self.addSwitch('s33')
 
-        # ... and now hosts
+        # Single host for each node
         Sunnyvale_host = self.addHost('h0')
         Nashville_host = self.addHost('h1')
         Raleigh_host = self.addHost('h2')
@@ -95,7 +93,7 @@ class GeneratedTopo(Topo):
         Seattle_host = self.addHost('h32')
         Ashburn_host = self.addHost('h33')
 
-        # add edges between switch and corresponding host
+        # Connect Nodes/Hosts
         self.addLink(Sunnyvale, Sunnyvale_host)
         self.addLink(Nashville, Nashville_host)
         self.addLink(Raleigh, Raleigh_host)
@@ -131,7 +129,7 @@ class GeneratedTopo(Topo):
         self.addLink(Seattle, Seattle_host)
         self.addLink(Ashburn, Ashburn_host)
 
-        # add edges between switches
+        # Edges
         self.addLink(Vancouver, Seattle, bw=1, delay=getDelay(49.260440, -123.114034, 47.603560, -122.329439))
         self.addLink(Seattle, Missoula, bw=1, delay=getDelay(47.603560, -122.329439, 46.872780, -113.996234))
         self.addLink(Missoula, Minneapolis, bw=1, delay=getDelay(46.872780, -113.996234, 44.979035, -93.264929))
@@ -175,21 +173,15 @@ class GeneratedTopo(Topo):
         self.addLink(Washington_DC, Raleigh, bw=1, delay=getDelay(38.890370, -77.031959, 35.785510, -78.642669))
         self.addLink(Raleigh, Atlanta, bw=1, delay=getDelay(35.785510, -78.642669, 33.748315, -84.391109))
 
-topos = { 'generated': ( lambda: GeneratedTopo() ) }
+topos = { 'generated': ( lambda: OS3ETopo() ) }
 
-# HERE THE CODE DEFINITION OF THE TOPOLOGY ENDS
-
-# the following code produces an executable script working with a remote controller
-# and providing ssh access to the the mininet hosts from within the ubuntu vm
-controller_ip = '127.0.0.0'
-
+# Calculates and returns delay (latency due to geographical distance) for an edge. Equation is from Assessing-Mininet project/paper.
+# Inputs: (latitude of first node, longitude of first node, latitude of second node, longitude of second node)
 def getDelay(la1, lo1, la2, lo2):
-    first_product               = math.sin(float(la1)) * math.sin(float(la2))
-    second_product_first_part   = math.cos(float(la1)) * math.cos(float(la2))
-    second_product_second_part  = math.cos((float(lo2)) - (float(lo1)))
+    first_product = math.sin(float(la1)) * math.sin(float(la2))
+    second_product_first_part = math.cos(float(la1)) * math.cos(float(la2))
+    second_product_second_part = math.cos((float(lo2)) - (float(lo1)))
     distance = math.radians(math.acos(first_product + (second_product_first_part * second_product_second_part))) * 6378.137
-    # t (in ms) = ( distance in km * 1000 (for meters) ) / ( speed of light / 1000 (for ms))
-    # t         = ( distance       * 1000              ) / ( 1.97 * 10**8   / 1000         )
     delay = "'" + (str((distance * 1000) / 197000)) + "ms'"
     return delay
 
@@ -197,11 +189,11 @@ def setupNetwork(controller_ip):
     "Create network and run simple performance test"
     # check if remote controller's ip was set
     # else set it to localhost
-    topo = GeneratedTopo()
+    topo = OS3ETopo()
     if controller_ip == '':
         #controller_ip = '10.0.2.2';
         controller_ip = '127.0.0.1';
-    net = Mininet(topo=topo, controller=lambda a: RemoteController( a, ip=controller_ip, port=6633 ), host=CPULimitedHost, link=TCLink)
+    net = Mininet(topo=topo, controller=lambda a: RemoteController( a, ip='127.0.0.1', port=6633 ), host=CPULimitedHost, link=TCLink)
     return net
 
 def connectToRootNS( network, switch, ip, prefixLen, routes ):
