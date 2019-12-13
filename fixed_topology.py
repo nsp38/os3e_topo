@@ -246,4 +246,4 @@ def sshd( network, cmd='/usr/sbin/sshd', opts='-D' ):
 if __name__ == '__main__':
     setLogLevel('info')
     #setLogLevel('debug')
-    sshd( setupNetwork(controller_ip) )
+    sshd( setupNetwork('127.0.0.1') )
