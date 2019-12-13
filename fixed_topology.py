@@ -191,7 +191,7 @@ topos = { 'generated': ( lambda: GeneratedTopo() ) }
 
 # the following code produces an executable script working with a remote controller
 # and providing ssh access to the the mininet hosts from within the ubuntu vm
-controller_ip = '141.13.92.68'
+controller_ip = '127.0.0.0'
 
 def getDelay(la1, lo1, la2, lo2):
     first_product               = math.sin(float(la1)) * math.sin(float(la2))
