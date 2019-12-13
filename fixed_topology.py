@@ -193,15 +193,15 @@ topos = { 'generated': ( lambda: GeneratedTopo() ) }
 # and providing ssh access to the the mininet hosts from within the ubuntu vm
 controller_ip = '127.0.0.0'
 
-def getDelay(la1, lo1, la2, lo2):
-    first_product               = math.sin(float(la1)) * math.sin(float(la2))
-    second_product_first_part   = math.cos(float(la1)) * math.cos(float(la2))
-    second_product_second_part  = math.cos((float(lo2)) - (float(lo1)))
-    distance = math.radians(math.acos(first_product + (second_product_first_part * second_product_second_part))) * 6378.137
-    # t (in ms) = ( distance in km * 1000 (for meters) ) / ( speed of light / 1000 (for ms))
-    # t         = ( distance       * 1000              ) / ( 1.97 * 10**8   / 1000         )
-    delay = "'" + (str((distance * 1000) / 197000)) + "ms'"
-    return delay
+#def getDelay(la1, lo1, la2, lo2):
+#    first_product               = math.sin(float(la1)) * math.sin(float(la2))
+#    second_product_first_part   = math.cos(float(la1)) * math.cos(float(la2))
+#    second_product_second_part  = math.cos((float(lo2)) - (float(lo1)))
+#    distance = math.radians(math.acos(first_product + (second_product_first_part * second_product_second_part))) * 6378.137
+#    # t (in ms) = ( distance in km * 1000 (for meters) ) / ( speed of light / 1000 (for ms))
+#    # t         = ( distance       * 1000              ) / ( 1.97 * 10**8   / 1000         )
+#    delay = "'" + (str((distance * 1000) / 197000)) + "ms'"
+#    return delay
 
 def setupNetwork(controller_ip):
     "Create network and run simple performance test"
