@@ -34,16 +34,16 @@ class OS3ETopo(Topo):
         Seattle = self.addSwitch('s9')
 
         # Single host for each node
-        Sunnyvale_host = self.addHost('h0', ip='10.0.0.0')
-        Chicago_host = self.addHost('h1', ip='10.0.0.1')
-        Vancouver_host = self.addHost('h2', ip='10.0.0.2')
-        Los_Angeles_host = self.addHost('h3', ip='10.0.0.3')
-        Missoula_host = self.addHost('h4', ip='10.0.0.4')
-        Tucson_host = self.addHost('h5', ip='10.0.0.5')
-        Minneapolis_host = self.addHost('h6', ip='10.0.0.6')
-        Salt_Lake_City_host = self.addHost('h7', ip='10.0.0.7')
-        Portland_host = self.addHost('h8', ip='10.0.0.8')
-        Seattle_host = self.addHost('h9', ip='10.0.0.9')
+        Sunnyvale_host = self.addHost('h0', ip='0.0.0.0')
+        Chicago_host = self.addHost('h1', ip='0.0.0.0')
+        Vancouver_host = self.addHost('h2', ip='0.0.0.0')
+        Los_Angeles_host = self.addHost('h3', ip='0.0.0.0')
+        Missoula_host = self.addHost('h4', ip='0.0.0.0')
+        Tucson_host = self.addHost('h5', ip='0.0.0.0')
+        Minneapolis_host = self.addHost('h6', ip='0.0.0.0')
+        Salt_Lake_City_host = self.addHost('h7', ip='0.0.0.0')
+        Portland_host = self.addHost('h8', ip='0.0.0.0')
+        Seattle_host = self.addHost('h9', ip='0.0.0.0')
 
         # Connect Nodes/Hosts
         self.addLink(Sunnyvale, Sunnyvale_host)
