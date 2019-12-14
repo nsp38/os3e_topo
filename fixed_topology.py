@@ -11,16 +11,11 @@ from mininet.link import TCLink
 from mininet.cli import CLI
 from mininet.log import setLogLevel
 from mininet.util import dumpNodeConnections
-
 import math
-
-
 class OS3ETopo(Topo):
     
     def __init__(self, **opts):
-
         Topo.__init__(self, **opts)
-
         # Nodes (34)
         Sunnyvale = self.addSwitch('s0')
         Nashville = self.addSwitch('s1')
@@ -58,40 +53,40 @@ class OS3ETopo(Topo):
         Ashburn = self.addSwitch('s33')
 
         # Single host for each node
-        Sunnyvale_host = self.addHost('h0')
-        Nashville_host = self.addHost('h1')
-        Raleigh_host = self.addHost('h2')
-        Chicago_host = self.addHost('h3')
-        El_Paso_host = self.addHost('h4')
-        Denver_host = self.addHost('h5')
-        Dallas_host = self.addHost('h6')
-        Louisville_host = self.addHost('h7')
-        Vancouver_host = self.addHost('h8')
-        Washington_DC_host = self.addHost('h9')
-        Indianapolis_host = self.addHost('h10')
-        Pittsburgh_host = self.addHost('h11')
-        Baton_Rouge_host = self.addHost('h12')
-        Albuquerque_host = self.addHost('h13')
-        Los_Angeles_host = self.addHost('h14')
-        Atlanta_host = self.addHost('h15')
-        Memphis_host = self.addHost('h16')
-        Jacksonville_host = self.addHost('h17')
-        Miami_host = self.addHost('h18')
-        Kansas_City_host = self.addHost('h19')
-        Missoula_host = self.addHost('h20')
-        Philadelphia_host = self.addHost('h21')
-        Tucson_host = self.addHost('h22')
-        Buffalo_host = self.addHost('h23')
-        Houston_host = self.addHost('h24')
-        Boston_host = self.addHost('h25')
-        Minneapolis_host = self.addHost('h26')
-        New_York_host = self.addHost('h27')
-        Salt_Lake_City_host = self.addHost('h28')
-        Cleveland_host = self.addHost('h29')
-        Jackson_host = self.addHost('h30')
-        Portland_host = self.addHost('h31')
-        Seattle_host = self.addHost('h32')
-        Ashburn_host = self.addHost('h33')
+        Sunnyvale_host = self.addHost('h0', ip='0.0.0.0')
+        Nashville_host = self.addHost('h1', ip='0.0.0.0')
+        Raleigh_host = self.addHost('h2', ip='0.0.0.0')
+        Chicago_host = self.addHost('h3', ip='0.0.0.0')
+        El_Paso_host = self.addHost('h4', ip='0.0.0.0')
+        Denver_host = self.addHost('h5', ip='0.0.0.0')
+        Dallas_host = self.addHost('h6', ip='0.0.0.0')
+        Louisville_host = self.addHost('h7', ip='0.0.0.0')
+        Vancouver_host = self.addHost('h8', ip='0.0.0.0')
+        Washington_DC_host = self.addHost('h9', ip='0.0.0.0')
+        Indianapolis_host = self.addHost('h10', ip='0.0.0.0')
+        Pittsburgh_host = self.addHost('h11', ip='0.0.0.0')
+        Baton_Rouge_host = self.addHost('h12', ip='0.0.0.0')
+        Albuquerque_host = self.addHost('h13', ip='0.0.0.0')
+        Los_Angeles_host = self.addHost('h14', ip='0.0.0.0')
+        Atlanta_host = self.addHost('h15', ip='0.0.0.0')
+        Memphis_host = self.addHost('h16', ip='0.0.0.0')
+        Jacksonville_host = self.addHost('h17', ip='0.0.0.0')
+        Miami_host = self.addHost('h18', ip='0.0.0.0')
+        Kansas_City_host = self.addHost('h19', ip='0.0.0.0')
+        Missoula_host = self.addHost('h20', ip='0.0.0.0')
+        Philadelphia_host = self.addHost('h21', ip='0.0.0.0')
+        Tucson_host = self.addHost('h22', ip='0.0.0.0')
+        Buffalo_host = self.addHost('h23', ip='0.0.0.0')
+        Houston_host = self.addHost('h24', ip='0.0.0.0')
+        Boston_host = self.addHost('h25', ip='0.0.0.0')
+        Minneapolis_host = self.addHost('h26', ip='0.0.0.0')
+        New_York_host = self.addHost('h27', ip='0.0.0.0')
+        Salt_Lake_City_host = self.addHost('h28', ip='0.0.0.0')
+        Cleveland_host = self.addHost('h29', ip='0.0.0.0')
+        Jackson_host = self.addHost('h30', ip='0.0.0.0')
+        Portland_host = self.addHost('h31', ip='0.0.0.0')
+        Seattle_host = self.addHost('h32', ip='0.0.0.0')
+        Ashburn_host = self.addHost('h33', ip='0.0.0.0')
 
         # Connect Nodes/Hosts
         self.addLink(Sunnyvale, Sunnyvale_host)
@@ -128,7 +123,6 @@ class OS3ETopo(Topo):
         self.addLink(Portland, Portland_host)
         self.addLink(Seattle, Seattle_host)
         self.addLink(Ashburn, Ashburn_host)
-
         # Edges
         self.addLink(Vancouver, Seattle, bw=1, delay=getDelay(49.260440, -123.114034, 47.603560, -122.329439))
         self.addLink(Seattle, Missoula, bw=1, delay=getDelay(47.603560, -122.329439, 46.872780, -113.996234))
@@ -172,9 +166,8 @@ class OS3ETopo(Topo):
         self.addLink(Ashburn, Washington_DC, bw=1, delay=getDelay(39.051631, -77.483151, 38.890370, -77.031959))
         self.addLink(Washington_DC, Raleigh, bw=1, delay=getDelay(38.890370, -77.031959, 35.785510, -78.642669))
         self.addLink(Raleigh, Atlanta, bw=1, delay=getDelay(35.785510, -78.642669, 33.748315, -84.391109))
-
+		
 topos = { 'generated': ( lambda: OS3ETopo() ) }
-
 # Calculates and returns delay (latency due to geographical distance) for an edge. Equation is from Assessing-Mininet project/paper.
 # Inputs: (latitude of first node, longitude of first node, latitude of second node, longitude of second node)
 def getDelay(la1, lo1, la2, lo2):
@@ -184,7 +177,6 @@ def getDelay(la1, lo1, la2, lo2):
     distance = math.radians(math.acos(first_product + (second_product_first_part * second_product_second_part))) * 6378.137
     delay = "'" + (str((distance * 1000) / 197000)) + "ms'"
     return delay
-
 def setupNetwork(controller_ip):
     "Create network and run simple performance test"
     # check if remote controller's ip was set
@@ -195,7 +187,6 @@ def setupNetwork(controller_ip):
         controller_ip = '127.0.0.1';
     net = Mininet(topo=topo, controller=lambda a: RemoteController( a, ip='127.0.0.1', port=6633 ), host=CPULimitedHost, link=TCLink)
     return net
-
 def connectToRootNS( network, switch, ip, prefixLen, routes ):
     "Connect hosts to root namespace via switch. Starts network."
     "network: Mininet() network object"
@@ -212,7 +203,6 @@ def connectToRootNS( network, switch, ip, prefixLen, routes ):
     # Add routes from root ns to hosts
     for route in routes:
         root.cmd( 'route add -net ' + route + ' dev ' + str( intf ) )
-
 def sshd( network, cmd='/usr/sbin/sshd', opts='-D' ):
     "Start a network, connect it to root ns, and run sshd on all hosts."
     switch = network.switches[ 0 ]  # switch to use
@@ -221,7 +211,6 @@ def sshd( network, cmd='/usr/sbin/sshd', opts='-D' ):
     connectToRootNS( network, switch, ip, 8, routes )
     for host in network.hosts:
         host.cmd( cmd + ' ' + opts + '&' )
-
     # DEBUGGING INFO
     print
     print "Dumping host connections"
@@ -236,13 +225,10 @@ def sshd( network, cmd='/usr/sbin/sshd', opts='-D' ):
     print
     print "*** For testing network connectivity among the hosts, wait a bit for the controller to create all the routes, then do 'pingall' on the mininet console."
     print
-
     CLI( network )
     for host in network.hosts:
         host.cmd( 'kill %' + cmd )
     network.stop()
-
-
 if __name__ == '__main__':
     setLogLevel('info')
     #setLogLevel('debug')
